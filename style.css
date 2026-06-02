@@ -1,0 +1,416 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+#app {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* Экран авторизации */
+.auth-container {
+  max-width: 400px;
+  margin: 100px auto;
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.capybara-icon {
+  font-size: 80px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+h1 {
+  color: #667eea;
+  font-size: 2.5rem;
+  margin: 20px 0 10px;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.toggle-form {
+  margin-top: 20px;
+  color: #667eea;
+  cursor: pointer;
+}
+
+/* Основной экран */
+header {
+  background: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+#current-user {
+  cursor: pointer;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.logout-btn {
+  width: auto;
+  padding: 8px 15px;
+}
+
+.main-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Боковая панель */
+.sidebar {
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.avatar-large {
+  font-size: 100px;
+  margin-bottom: 15px;
+}
+
+.profile-card h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+  color: #666;
+}
+
+.edit-btn {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.search-box {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+#search-results {
+  margin-top: 10px;
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+}
+
+.search-result:hover {
+  background: #f9f9f9;
+}
+
+/* Лента */
+.feed {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.post-creator {
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+#post-content {
+  width: 100%;
+  min-height: 100px;
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  resize: vertical;
+  font-family: 'Nunito', sans-serif;
+}
+
+.post-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.attach-btn {
+  width: auto;
+  background: #f0f0f0;
+  color: #333;
+}
+
+.post-btn {
+  flex: 1;
+}
+
+#image-preview img {
+  max-width: 200px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+/* Пост */
+.post {
+  background: #f9f9f9;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: transform 0.2s;
+}
+
+.post:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.post-avatar {
+  font-size: 40px;
+  margin-right: 10px;
+}
+
+.post-user {
+  font-weight: bold;
+  color: #333;
+}
+
+.post-time {
+  color: #999;
+  font-size: 12px;
+}
+
+.post-text {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.post-image {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.post-actions-bar {
+  display: flex;
+  gap: 20px;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 15px;
+}
+
+.like-btn, .comment-btn {
+  width: auto;
+  background: none;
+  color: #666;
+  padding: 5px 10px;
+}
+
+.like-btn.liked {
+  color: #e74c3c;
+}
+
+.like-btn:hover, .comment-btn:hover {
+  background: #f0f0f0;
+}
+
+/* Комментарии */
+.comments-section {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.comment {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: white;
+  border-radius: 10px;
+}
+
+.comment-user {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #667eea;
+}
+
+.comment-input {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.comment-input input {
+  flex: 1;
+}
+
+.comment-input button {
+  width: auto;
+  padding: 12px 20px;
+}
+
+/* Модальное окно */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 600px;
+  margin: 50px auto;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.avatar-xlarge {
+  font-size: 120px;
+  text-align: center;
+}
+
+.profile-detail {
+  text-align: center;
+}
+
+.modal-stats {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 20px 0;
+}
+
+#follow-btn {
+  width: auto;
+  padding: 10px 30px;
+  margin: 20px auto;
+  display: inline-block;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .main-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    position: static;
+  }
+  
+  .auth-container {
+    margin: 50px 20px;
+  }
+  }
