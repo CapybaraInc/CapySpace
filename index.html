@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CapySpace — Вход в норку</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+            min-height: 500px;
+        }
+        .logo {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+        h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 4px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+        .input-group input:focus {
+            border-color: #667eea;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 10px;
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #5a6fd6;
+        }
+        .btn-secondary {
+            background: #eee;
+            color: #333;
+        }
+        .btn-secondary:hover {
+            background: #ddd;
+        }
+        .error {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+        .success {
+            color: #2ecc71;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+        .toggle-link {
+            color: #667eea;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .toggle-link:hover {
+            text-decoration: underline;
+        }
+        .hidden {
+            display: none !important;
+        }
+        /* Стили для ленты */
+        #feedPage {
+            text-align: left;
+        }
+        #feedPage h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .post-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .post-card .author {
+            font-weight: bold;
+            color: #333;
+        }
+        .post-card .time {
+            font-size: 12px;
+            color: #999;
+        }
+        .post-card .text {
+            margin-top: 8px;
+        }
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo">🦫</div>
+        <h1>CapySpace</h1>
+        <div class="subtitle">Социальная сеть для капибар</div>
+
+        <!-- Форма входа -->
+        <div id="loginForm">
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="loginEmail" placeholder="капибара@mail.com">
+            </div>
+            <div class="input-group">
+                <label>Пароль</label>
+                <input type="password" id="loginPassword" placeholder="********">
+            </div>
+            <button class="btn btn-primary" id="loginBtn">Войти в норку 🏠</button>
+            <div class="error" id="loginError">Неверный email или пароль</div>
+            <div class="success" id="loginSuccess">Вход выполнен!</div>
+            <span class="toggle-link" id="showRegister">Нет норки? Зарегистрируйся!</span>
+        </div>
+
+        <!-- Форма регистрации -->
+        <div id="registerForm" class="hidden">
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="registerEmail" placeholder="капибара@mail.com">
+            </div>
+            <div class="input-group">
+                <label>Пароль</label>
+                <input type="password" id="registerPassword" placeholder="********">
+            </div>
+            <div class="input-group">
+                <label>Повтори пароль</label>
+                <input type="password" id="registerPassword2" placeholder="********">
+            </div>
+            <button class="btn btn-primary" id="registerBtn">Создать норку ✨</button>
+            <div class="error" id="registerError">Что-то пошло не так</div>
+            <div class="success" id="registerSuccess">Норка создана! Войди в неё.</div>
+            <span class="toggle-link" id="showLogin">Уже есть норка? Войди!</span>
+        </div>
+
+        <!-- Лента (скрыта по умолчанию) -->
+        <div id="feedPage" class="hidden">
+            <button class="logout-btn" onclick="location.reload()">Выйти из норки</button>
+            <h1>🦫 Добро пожаловать!</h1>
+            <div id="postsContainer">
+                <div class="post-card">
+                    <div class="author">Капибара Инк</div>
+                    <div class="time">Сейчас</div>
+                    <div class="text">Привет, капибары! Это ваша лента 🦫</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js">
+    </script>
+
+    <script>
+        // ===== ТВОЙ КОНФИГ FIREBASE =====
+        const firebaseConfig = {
+            apiKey: "AIzaSyCDqJL5NZ7pSXzjCrL6LtxkPPhetDOeqI4",
+            authDomain: "capyspace-f7e08.firebaseapp.com",
+            projectId: "capyspace-f7e08",
+            storageBucket: "capyspace-f7e08.firebasestorage.app",
+            messagingSenderId: "303562964425",
+            appId: "1:303562964425:web:84be04f79d102a1144fc18",
+            measurementId: "G-JNLGZG4Q56"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
+
+        // ===== ЭЛЕМЕНТЫ DOM =====
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const loginEmail = document.getElementById('loginEmail');
+        const loginPassword = document.getElementById('loginPassword');
+        const registerEmail = document.getElementById('registerEmail');
+        const registerPassword = document.getElementById('registerPassword');
+        const registerPassword2 = document.getElementById('registerPassword2');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const loginError = document.getElementById('loginError');
+        const loginSuccess = document.getElementById('loginSuccess');
+        const registerError = document.getElementById('registerError');
+        const registerSuccess = document.getElementById('registerSuccess');
+        const showRegister = document.getElementById('showRegister');
+        const showLogin = document.getElementById('showLogin');
+        const feedPage = document.getElementById('feedPage');
+
+        // ===== ПЕРЕКЛЮЧЕНИЕ ФОРМ =====
+        showRegister.addEventListener('click', () => {
+            loginForm.classList.add('hidden');
+            registerForm.classList.remove('hidden');
+            loginError.style.display = 'none';
+            loginSuccess.style.display = 'none';
+        });
+
+        showLogin.addEventListener('click', () => {
+            registerForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+            registerError.style.display = 'none';
+            registerSuccess.style.display = 'none';
+        });
+
+        // ===== РЕГИСТРАЦИЯ =====
+        registerBtn.addEventListener('click', () => {
+            const email = registerEmail.value.trim();
+            const password = registerPassword.value;
+            const password2 = registerPassword2.value;
+
+            if (!email || !password || !password2) {
+                registerError.textContent = 'Заполни все поля';
+                registerError.style.display = 'block';
+                return;
+            }
+            if (password !== password2) {
+                registerError.textContent = 'Пароли не совпадают';
+                registerError.style.display = 'block';
+                return;
+            }
+            if (password.length < 6) {
+                registerError.textContent = 'Пароль не менее 6 символов';
+                registerError.style.display = 'block';
+                return;
+            }
+
+            registerError.style.display = 'none';
+            registerSuccess.style.display = 'none';
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    db.ref('users/' + user.uid).set({
+                        email: email,
+                        nickname: email.split('@')[0],
+                        avatar: 'default',
+                        createdAt: Date.now()
+                    }).then(() => {
+                        registerSuccess.textContent = 'Норка создана! Теперь войди.';
+                        registerSuccess.style.display = 'block';
+                        registerEmail.value = '';
+                        registerPassword.value = '';
+                        registerPassword2.value = '';
+                        setTimeout(() => {
+                            showLogin.click();
+                            loginEmail.value = email;
+                        }, 2000);
+                    });
+                })
+                .catch((error) => {
+                    registerError.textContent = error.message;
+                    registerError.style.display = 'block';
+                });
+        });
+
+        // ===== ВХОД (без alert, с показом ленты) =====
+        loginBtn.addEventListener('click', () => {
+            const email = loginEmail.value.trim();
+            const password = loginPassword.value;
+
+            if (!email || !password) {
+                loginError.textContent = 'Заполни все поля';
+                loginError.style.display = 'block';
+                return;
+            }
+
+            loginError.style.display = 'none';
+            loginSuccess.style.display = 'none';
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    loginSuccess.textContent = 'Вход выполнен! Добро пожаловать в норку.';
+                    loginSuccess.style.display = 'block';
+                    // ===== СКРЫВАЕМ ФОРМУ И ПОКАЗЫВАЕМ ЛЕНТУ =====
+                    loginForm.classList.add('hidden');
+                    feedPage.classList.remove('hidden');
+                })
+                .catch((error) => {
+                    loginError.textContent = error.message;
+                    loginError.style.display = 'block';
+                });
+        });
+
+        // ===== КЛАВИША ENTER =====
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                if (!loginForm.classList.contains('hidden')) {
+                    loginBtn.click();
+                } else if (!registerForm.classList.contains('hidden')) {
+                    registerBtn.click();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
